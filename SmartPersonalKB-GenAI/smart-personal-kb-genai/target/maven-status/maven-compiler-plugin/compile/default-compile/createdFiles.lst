@@ -1,0 +1,13 @@
+org\genai\knowledgebase\dto\SnippetDto.class
+org\genai\knowledgebase\controller\NoteController.class
+org\genai\knowledgebase\model\Snippet.class
+org\genai\knowledgebase\repository\SnippetRepository.class
+org\genai\knowledgebase\model\Note.class
+org\genai\knowledgebase\SmartPersonalKbGenAiApplication.class
+org\genai\knowledgebase\service\NoteService.class
+org\genai\knowledgebase\service\SnippetService.class
+org\genai\knowledgebase\service\SnippetServiceImpl.class
+org\genai\knowledgebase\service\NoteServiceImpl.class
+org\genai\knowledgebase\dto\NoteDto.class
+org\genai\knowledgebase\repository\NoteRepository.class
+org\genai\knowledgebase\controller\SnippetController.class

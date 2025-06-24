@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.genai.knowledgebase.DocumentControllerIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 49.09 s -- in org.genai.knowledgebase.DocumentControllerIntegrationTest
