@@ -110,6 +110,65 @@ A modern Spring Boot application that allows users to store, organize, and searc
 - Analytics and usage stats
 - Enable retrieval-augmented generation (RAG) so the LLM Q&A can automatically search and use your notes, snippets, and documents as context for smarter, personalized answers.
 
-## Project Structure (as of initial setup)
+## Project Structure (as of latest)
 
+```
+SmartPersonalKB-GenAI/
+│
+├── README.md
+├── LICENSE
+├── .vscode/
+├── frontend/                # React frontend (Vite + MUI)
+│   ├── package.json
+│   ├── vite.config.ts
+│   ├── tsconfig.json
+│   ├── tsconfig.app.json
+│   ├── tsconfig.node.json
+│   ├── eslint.config.js
+│   ├── index.html
+│   │   └── vite.svg
+│   ├── src/
+│   │   ├── App.tsx
+│   │   ├── Dashboard.tsx
+│   │   ├── Documents.tsx
+│   │   ├── LLM.tsx
+│   │   ├── Notes.tsx
+│   │   ├── Snippets.tsx
+│   │   ├── main.tsx
+│   │   ├── index.css
+│   │   ├── App.css
+│   │   ├── vite-env.d.ts
+│   │   └── assets/
+│   │       └── react.svg
+│   └── node_modules/
+│
+└── smart-personal-kb-genai/ # Spring Boot backend
+    ├── pom.xml
+    └── src/
+        ├── main/
+        │   ├── java/
+        │   │   └── org/
+        │   │       └── genai/
+        │   │           └── knowledgebase/
+        │   │               ├── SmartPersonalKbGenAiApplication.java
+        │   │               ├── controller/
+        │   │               ├── service/
+        │   │               ├── repository/
+        │   │               ├── model/
+        │   │               ├── dto/
+        │   │               ├── exception/
+        │   │               ├── llm/
+        │   │               └── scheduler/
+        │   └── resources/
+        │       └── application.properties
+        └── test/
+            └── java/
+                └── org/
+                    └── genai/
+                        └── knowledgebase/
+                            ├── LLMControllerIntegrationTest.java
+                            ├── DocumentControllerIntegrationTest.java
+                            ├── SnippetControllerIntegrationTest.java
+                            ├── NoteControllerIntegrationTest.java
+                            └── SmartPersonalKbGenAiApplicationTests.java
 ```
