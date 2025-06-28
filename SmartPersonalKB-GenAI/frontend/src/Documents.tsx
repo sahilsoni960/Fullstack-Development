@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
-  Box, Typography, List, ListItem, ListItemText, Card, CardContent, CircularProgress, Alert,
-  Fab, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, IconButton
+  Box, Typography, Card, CardContent, CircularProgress, Alert,
+  Fab, Dialog, DialogTitle, DialogContent, DialogActions, Button,
+  TextField, IconButton, Grid, Avatar
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DescriptionIcon from '@mui/icons-material/Description';
 import SearchIcon from '@mui/icons-material/Search';
-import ListItemIcon from '@mui/material/ListItemIcon';
 
 interface Document {
   id: number;
@@ -106,90 +106,131 @@ const Documents: React.FC = () => {
     document.filePath.toLowerCase().includes(search.toLowerCase())
   );
 
-  if (loading) return <CircularProgress />;
-  if (error) return <Alert severity="error">{error}</Alert>;
-
   return (
-    <Box>
-      <Typography variant="h4" gutterBottom>Documents</Typography>
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-        <SearchIcon sx={{ mr: 1 }} />
-        <TextField
-          label="Search documents"
-          variant="outlined"
-          size="small"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          sx={{ width: 300 }}
-        />
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+        p: 2,
+      }}
+    >
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: 700,
+          minHeight: '80vh',
+          background: 'rgba(255,255,255,0.95)',
+          borderRadius: 4,
+          boxShadow: 3,
+          p: 4,
+          position: 'relative',
+          mt: 4,
+        }}
+      >
+        <Typography variant="h4" fontWeight="bold" gutterBottom sx={{ color: 'success.main' }}>
+          Documents
+        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+          <SearchIcon sx={{ mr: 1 }} />
+          <TextField
+            label="Search documents"
+            variant="outlined"
+            size="small"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            sx={{ width: 300 }}
+          />
+        </Box>
+        {loading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}><CircularProgress /></Box>
+        ) : error ? (
+          <Alert severity="error">{error}</Alert>
+        ) : (
+          <Grid container spacing={3}>
+            {filteredDocuments.map(document => (
+              <Grid item xs={12} sm={6} md={4} key={document.id}>
+                <Card elevation={3} sx={{ borderRadius: 3 }}>
+                  <CardContent>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                      <Avatar sx={{ bgcolor: 'success.main', mr: 2 }}>
+                        <DescriptionIcon />
+                      </Avatar>
+                      <Typography variant="h6">{document.title}</Typography>
+                    </Box>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      {document.filePath}
+                    </Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
+                      <IconButton onClick={() => handleEditClick(document)}><EditIcon /></IconButton>
+                      <IconButton onClick={() => handleDeleteClick(document)}><DeleteIcon /></IconButton>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+            {filteredDocuments.length === 0 && (
+              <Grid item xs={12}>
+                <Typography color="text.secondary">No documents found.</Typography>
+              </Grid>
+            )}
+          </Grid>
+        )}
+        <Fab
+          color="success"
+          aria-label="add"
+          sx={{
+            position: 'absolute',
+            bottom: 32,
+            right: 32,
+            zIndex: 1,
+          }}
+          onClick={() => { setOpen(true); setEditDocument(null); setNewTitle(''); setNewFilePath(''); }}
+          title="Add Document"
+        >
+          <AddIcon />
+        </Fab>
+        <Dialog open={open} onClose={() => { setOpen(false); setEditDocument(null); }}>
+          <DialogTitle>{editDocument ? 'Edit Document' : 'Add Document'}</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              label="Title"
+              fullWidth
+              value={newTitle}
+              onChange={e => setNewTitle(e.target.value)}
+            />
+            <TextField
+              margin="dense"
+              label="File Path"
+              fullWidth
+              value={newFilePath}
+              onChange={e => setNewFilePath(e.target.value)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => { setOpen(false); setEditDocument(null); }} disabled={submitting}>Cancel</Button>
+            {editDocument ? (
+              <Button onClick={handleEditDocument} disabled={submitting || !newTitle.trim() || !newFilePath.trim()} variant="contained">Update</Button>
+            ) : (
+              <Button onClick={handleAddDocument} disabled={submitting || !newTitle.trim() || !newFilePath.trim()} variant="contained">Add</Button>
+            )}
+          </DialogActions>
+        </Dialog>
+        <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
+          <DialogTitle>Delete Document</DialogTitle>
+          <DialogContent>
+            <Typography>Are you sure you want to delete this document?</Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setDeleteDialogOpen(false)} disabled={submitting}>Cancel</Button>
+            <Button onClick={handleDeleteDocument} color="error" disabled={submitting} variant="contained">Delete</Button>
+          </DialogActions>
+        </Dialog>
       </Box>
-      <List>
-        {filteredDocuments.map(document => (
-          <Card key={document.id} sx={{ mb: 2 }}>
-            <CardContent>
-              <ListItem
-                secondaryAction={
-                  <>
-                    <IconButton edge="end" aria-label="edit" onClick={() => handleEditClick(document)}>
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton edge="end" aria-label="delete" onClick={() => handleDeleteClick(document)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </>
-                }
-              >
-                <ListItemIcon><DescriptionIcon /></ListItemIcon>
-                <ListItemText
-                  primary={document.title}
-                  secondary={document.filePath}
-                />
-              </ListItem>
-            </CardContent>
-          </Card>
-        ))}
-      </List>
-      <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 32, right: 32 }} onClick={() => { setOpen(true); setEditDocument(null); setNewTitle(''); setNewFilePath(''); }}>
-        <AddIcon />
-      </Fab>
-      <Dialog open={open} onClose={() => { setOpen(false); setEditDocument(null); }}>
-        <DialogTitle>{editDocument ? 'Edit Document' : 'Add Document'}</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            label="Title"
-            fullWidth
-            value={newTitle}
-            onChange={e => setNewTitle(e.target.value)}
-          />
-          <TextField
-            margin="dense"
-            label="File Path"
-            fullWidth
-            value={newFilePath}
-            onChange={e => setNewFilePath(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => { setOpen(false); setEditDocument(null); }} disabled={submitting}>Cancel</Button>
-          {editDocument ? (
-            <Button onClick={handleEditDocument} disabled={submitting || !newTitle.trim() || !newFilePath.trim()} variant="contained">Update</Button>
-          ) : (
-            <Button onClick={handleAddDocument} disabled={submitting || !newTitle.trim() || !newFilePath.trim()} variant="contained">Add</Button>
-          )}
-        </DialogActions>
-      </Dialog>
-      <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
-        <DialogTitle>Delete Document</DialogTitle>
-        <DialogContent>
-          <Typography>Are you sure you want to delete this document?</Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setDeleteDialogOpen(false)} disabled={submitting}>Cancel</Button>
-          <Button onClick={handleDeleteDocument} color="error" disabled={submitting} variant="contained">Delete</Button>
-        </DialogActions>
-      </Dialog>
     </Box>
   );
 };
