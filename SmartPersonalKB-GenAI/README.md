@@ -14,6 +14,7 @@ A modern Spring Boot application that allows users to store, organize, and searc
 - Search and filter notes
 - Ask questions and get LLM-generated answers based on stored content
 - Summarize notes using LLM
+- **Retrieval-Augmented Generation (RAG):** LLM Q&A can automatically search and use your notes, snippets, and documents as context for smarter, personalized answers.
 - Scheduling for periodic summarization or reminders
 - Caching for repeated queries
 - Profiles for dev/prod environments
@@ -59,6 +60,7 @@ A modern Spring Boot application that allows users to store, organize, and searc
 
 ### 5. **LLM Integration (Gemini)**
 - The application uses the [Google Gemini LLM API](https://aistudio.google.com/app/apikey) for Q&A and summarization.
+- Retrieval-Augmented Generation (RAG) is implemented: The LLM Q&A can automatically search and use your notes, snippets, and documents as context for smarter, personalized answers.
 - You must obtain a free Gemini API key and add it to `src/main/resources/application.properties`:
   ```properties
   llm.gemini.api.url=https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=YOUR_GEMINI_API_KEY
@@ -108,7 +110,6 @@ A modern Spring Boot application that allows users to store, organize, and searc
 - User authentication/authorization
 - File/document upload and parsing
 - Analytics and usage stats
-- Enable retrieval-augmented generation (RAG) so the LLM Q&A can automatically search and use your notes, snippets, and documents as context for smarter, personalized answers.
 
 ## Project Structure (as of latest)
 
