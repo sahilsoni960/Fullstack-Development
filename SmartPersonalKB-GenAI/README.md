@@ -1,5 +1,15 @@
 # Smart Personal Knowledge Base with Generative AI
 
+## Technologies Used
+
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=FFD62E)
+![MUI](https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=mui&logoColor=white)
+![Gemini LLM API](https://img.shields.io/badge/Gemini%20LLM%20API-4285F4?style=for-the-badge&logo=google&logoColor=white)
+
 ## Project Overview
 A modern Spring Boot application that allows users to store, organize, and search personal notes, code snippets, and documents. The system integrates with the Google Gemini LLM API to provide generative Q&A and summarization features based on the stored content. **With Retrieval-Augmented Generation (RAG), the system can automatically search and use your notes, snippets, and documents as context for smarter, personalized answers.**
 
