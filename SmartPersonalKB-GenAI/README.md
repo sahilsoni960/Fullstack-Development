@@ -1,7 +1,7 @@
 # Smart Personal Knowledge Base with Generative AI
 
 ## Project Overview
-A modern Spring Boot application that allows users to store, organize, and search personal notes, code snippets, and documents. The system integrates with the Google Gemini LLM API to provide generative Q&A and summarization features based on the stored content.
+A modern Spring Boot application that allows users to store, organize, and search personal notes, code snippets, and documents. The system integrates with the Google Gemini LLM API to provide generative Q&A and summarization features based on the stored content. **With Retrieval-Augmented Generation (RAG), the system can automatically search and use your notes, snippets, and documents as context for smarter, personalized answers.**
 
 ## Goals
 - Maximize use of Spring Boot concepts for hands-on learning.
