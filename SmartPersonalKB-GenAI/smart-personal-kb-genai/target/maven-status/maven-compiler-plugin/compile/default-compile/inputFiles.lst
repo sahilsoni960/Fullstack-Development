@@ -25,6 +25,7 @@ C:\Sahil\Cursor\Git\Backend-Development\SmartPersonalKB-GenAI\smart-personal-kb-
 C:\Sahil\Cursor\Git\Backend-Development\SmartPersonalKB-GenAI\smart-personal-kb-genai\src\main\java\org\genai\knowledgebase\model\Snippet.java
 C:\Sahil\Cursor\Git\Backend-Development\SmartPersonalKB-GenAI\smart-personal-kb-genai\src\main\java\org\genai\knowledgebase\exception\GlobalExceptionHandler.java
 C:\Sahil\Cursor\Git\Backend-Development\SmartPersonalKB-GenAI\smart-personal-kb-genai\src\main\java\org\genai\knowledgebase\llm\OllamaResponse.java
+C:\Sahil\Cursor\Git\Backend-Development\SmartPersonalKB-GenAI\smart-personal-kb-genai\src\main\java\org\genai\knowledgebase\service\ContextRetrievalService.java
 C:\Sahil\Cursor\Git\Backend-Development\SmartPersonalKB-GenAI\smart-personal-kb-genai\src\main\java\org\genai\knowledgebase\llm\gemini\GeminiService.java
 C:\Sahil\Cursor\Git\Backend-Development\SmartPersonalKB-GenAI\smart-personal-kb-genai\src\main\java\org\genai\knowledgebase\service\NoteService.java
 C:\Sahil\Cursor\Git\Backend-Development\SmartPersonalKB-GenAI\smart-personal-kb-genai\src\main\java\org\genai\knowledgebase\model\Document.java

@@ -1,12 +1,12 @@
 # Smart Personal Knowledge Base with Generative AI
 
 ## Project Overview
-A modern Spring Boot application that allows users to store, organize, and search personal notes, code snippets, and documents. The system integrates with a local LLM (Ollama) to provide generative Q&A and summarization features based on the stored content.
+A modern Spring Boot application that allows users to store, organize, and search personal notes, code snippets, and documents. The system integrates with the Google Gemini LLM API to provide generative Q&A and summarization features based on the stored content.
 
 ## Goals
 - Maximize use of Spring Boot concepts for hands-on learning.
-- Integrate Generative AI (Ollama LLM) for Q&A and summarization.
-- Keep resource usage minimal (runs on local machine, no paid tokens or cloud auth).
+- Integrate Generative AI (Gemini LLM API) for Q&A and summarization.
+- Keep resource usage minimal (runs on local machine, no paid tokens or cloud auth beyond a free Gemini API key).
 - Modular, extensible, and production-ready codebase.
 
 ## Key Features
@@ -27,7 +27,7 @@ A modern Spring Boot application that allows users to store, organize, and searc
 ### 1. **Architecture**
 - **Backend:** Java, Spring Boot
 - **Database:** H2 (dev), MySQL/Postgres (prod)
-- **LLM Integration:** Ollama (local REST API)
+- **LLM Integration:** Google Gemini LLM API (cloud REST API)
 - **Testing:** JUnit, Mockito
 
 ### 2. **Modules/Packages**
@@ -39,7 +39,7 @@ A modern Spring Boot application that allows users to store, organize, and searc
 - `mapper` — Entity/DTO mapping
 - `exception` — Custom exceptions & handlers
 - `config` — Configuration (profiles, caching, scheduling, actuator)
-- `llm` — Ollama integration logic
+- `llm` — Gemini integration logic
 - `scheduler` — Scheduled tasks
 - `test` — Unit and integration tests
 
@@ -58,7 +58,7 @@ A modern Spring Boot application that allows users to store, organize, and searc
 - `POST /api/summarize` — Summarize notes (LLM)
 
 ### 5. **LLM Integration (Gemini)**
-- The application now uses the [Google Gemini LLM API](https://aistudio.google.com/app/apikey) for Q&A and summarization.
+- The application uses the [Google Gemini LLM API](https://aistudio.google.com/app/apikey) for Q&A and summarization.
 - You must obtain a free Gemini API key and add it to `src/main/resources/application.properties`:
   ```properties
   llm.gemini.api.url=https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=YOUR_GEMINI_API_KEY
@@ -172,3 +172,15 @@ SmartPersonalKB-GenAI/
                             ├── NoteControllerIntegrationTest.java
                             └── SmartPersonalKbGenAiApplicationTests.java
 ```
+
+## Getting Started
+1. Clone the repo
+2. Obtain a free Gemini API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+3. Add your Gemini API key to `src/main/resources/application.properties` as shown above
+4. Run the Spring Boot app
+5. Use the REST API to manage notes and ask questions
+
+---
+
+## License
+MIT

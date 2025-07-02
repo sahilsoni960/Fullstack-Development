@@ -1,6 +1,7 @@
 package org.genai.knowledgebase.controller;
 
 import org.genai.knowledgebase.llm.gemini.GeminiService;
+import org.genai.knowledgebase.service.ContextRetrievalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +18,17 @@ import java.util.Map;
 @RequestMapping("/api")
 public class LLMController {
     private final GeminiService geminiService;
+    private final ContextRetrievalService contextRetrievalService;
 
     /**
-     * Constructor-based dependency injection of GeminiService.
+     * Constructor-based dependency injection of GeminiService and ContextRetrievalService.
      * @param geminiService the service for LLM Q&A and summarization
+     * @param contextRetrievalService the service for retrieving relevant context
      */
     @Autowired
-    public LLMController(GeminiService geminiService) {
+    public LLMController(GeminiService geminiService, ContextRetrievalService contextRetrievalService) {
         this.geminiService = geminiService;
+        this.contextRetrievalService = contextRetrievalService;
     }
 
     /**
@@ -34,8 +38,20 @@ public class LLMController {
      */
     @PostMapping("/ask")
     public ResponseEntity<Map<String, String>> askQuestion(@RequestBody Map<String, String> body) {
+        System.out.println("LLMController /ask endpoint called");
         String prompt = body.getOrDefault("prompt", "");
-        String answer = geminiService.generateContent(prompt);
+        String context = contextRetrievalService.getRelevantContext(prompt);
+        // Improved prompt formatting for RAG
+        StringBuilder fullPrompt = new StringBuilder();
+        fullPrompt.append("You are a personal knowledge assistant. Use the following user notes, code snippets, and documents as context to answer the user's question.\n");
+        fullPrompt.append("Always answer using the provided context if possible. If the answer is not in the context, say 'I don't know based on your notes.'\n\n");
+        fullPrompt.append("[CONTEXT START]\n");
+        fullPrompt.append(context);
+        fullPrompt.append("[CONTEXT END]\n\n");
+        fullPrompt.append("User question: ").append(prompt).append("\nAnswer:");
+        // Log the prompt for debugging
+        System.out.println("[RAG Prompt for LLM]:\n" + fullPrompt);
+        String answer = geminiService.generateContent(fullPrompt.toString());
         return ResponseEntity.ok(Map.of("answer", answer));
     }
 

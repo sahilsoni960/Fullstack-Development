@@ -15,7 +15,7 @@ const LLM: React.FC = () => {
     const url = type === 'ask' ? '/api/ask' : '/api/summarize';
     axios.post(url, { prompt: input })
       .then(res => {
-        setResponse(res.data.response || res.data.summary || JSON.stringify(res.data));
+        setResponse(res.data.answer || res.data.summary || 'No response');
       })
       .catch(() => setError('Failed to get response from LLM'))
       .finally(() => setLoading(false));
@@ -35,10 +35,10 @@ const LLM: React.FC = () => {
       />
       <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
         <Button variant="contained" onClick={() => handleLLM('ask')} disabled={loading || !input.trim()}>
-          Ask
+          Ask Your Knowledge Base
         </Button>
         <Button variant="outlined" onClick={() => handleLLM('summarize')} disabled={loading || !input.trim()}>
-          Summarize
+          Ask LLM
         </Button>
       </Box>
       {loading && <CircularProgress />}
