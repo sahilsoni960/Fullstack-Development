@@ -113,7 +113,7 @@ const Documents: React.FC = () => {
         justifyContent: 'center',
         alignItems: 'flex-start',
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+        background: 'none',
         p: 2,
       }}
     >
@@ -122,26 +122,28 @@ const Documents: React.FC = () => {
           width: '100%',
           maxWidth: 700,
           minHeight: '80vh',
-          background: 'rgba(255,255,255,0.95)',
-          borderRadius: 4,
-          boxShadow: 3,
+          background: 'rgba(35,41,70,0.85)',
+          borderRadius: 6,
+          boxShadow: 4,
           p: 4,
           position: 'relative',
           mt: 4,
         }}
       >
-        <Typography variant="h4" fontWeight="bold" gutterBottom sx={{ color: 'success.main' }}>
+        <Typography variant="h3" fontWeight={900} gutterBottom sx={{ color: '#43e97b', fontFamily: 'Inter, Roboto, Open Sans, Arial, sans-serif', letterSpacing: 1.5 }}>
           Documents
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-          <SearchIcon sx={{ mr: 1 }} />
+          <SearchIcon sx={{ mr: 1, color: '#43e97b' }} />
           <TextField
             label="Search documents"
             variant="outlined"
             size="small"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            sx={{ width: 300 }}
+            sx={{ width: 300, background: '#fff', borderRadius: 2 }}
+            InputProps={{ style: { color: '#232946' } }}
+            InputLabelProps={{ style: { color: '#232946' } }}
           />
         </Box>
         {loading ? (
@@ -151,29 +153,27 @@ const Documents: React.FC = () => {
         ) : (
           <Grid container spacing={3}>
             {filteredDocuments.map(document => (
-              <Grid item xs={12} sm={6} md={4} key={document.id}>
-                <Card elevation={3} sx={{ borderRadius: 3 }}>
-                  <CardContent>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                      <Avatar sx={{ bgcolor: 'success.main', mr: 2 }}>
-                        <DescriptionIcon />
-                      </Avatar>
-                      <Typography variant="h6">{document.title}</Typography>
+              <Grid item xs={12} key={document.id}>
+                <Card elevation={8} sx={{ borderRadius: 6, bgcolor: 'rgba(35,41,70,0.98)', color: '#fff', p: 3, boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                    <Avatar sx={{ bgcolor: '#43e97b', mr: 2, width: 44, height: 44 }}>
+                      <DescriptionIcon sx={{ color: '#232946', fontSize: 22 }} />
+                    </Avatar>
+                    <Box sx={{ flexGrow: 1 }}>
+                      <Typography fontWeight={800} sx={{ color: '#fff', fontSize: 18, lineHeight: 1.2 }}>{document.title}</Typography>
+                      <Typography sx={{ color: '#e0e0e0', fontSize: 15, lineHeight: 1.4 }}>{document.filePath || document.content}</Typography>
                     </Box>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      {document.filePath}
-                    </Typography>
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
-                      <IconButton onClick={() => handleEditClick(document)}><EditIcon /></IconButton>
-                      <IconButton onClick={() => handleDeleteClick(document)}><DeleteIcon /></IconButton>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <IconButton onClick={() => handleEditClick(document)} sx={{ color: '#ff6f91' }}><EditIcon /></IconButton>
+                      <IconButton onClick={() => handleDeleteClick(document)} sx={{ color: '#ff6f91' }}><DeleteIcon /></IconButton>
                     </Box>
-                  </CardContent>
+                  </Box>
                 </Card>
               </Grid>
             ))}
             {filteredDocuments.length === 0 && (
               <Grid item xs={12}>
-                <Typography color="text.secondary">No documents found.</Typography>
+                <Typography color="#e0e0e0">No documents found.</Typography>
               </Grid>
             )}
           </Grid>
@@ -186,6 +186,9 @@ const Documents: React.FC = () => {
             bottom: 32,
             right: 32,
             zIndex: 1,
+            bgcolor: '#43e97b',
+            color: '#232946',
+            '&:hover': { bgcolor: '#22c55e' },
           }}
           onClick={() => { setOpen(true); setEditDocument(null); setNewTitle(''); setNewFilePath(''); }}
           title="Add Document"
