@@ -1,13 +1,13 @@
-# 🚀 Backend Development Projects Repository
+# 🚀 Application Development Projects Repository
 
-Welcome to the **Backend Development Projects Repository**! This repository serves as a central hub for all my backend development projects, applications, and software solutions. Here, you'll find a diverse collection of codebases, frameworks, and tools focused on building, automating, and enhancing backend systems and services.
+Welcome to the **Fullstack Development Projects Repository**! This repository serves as a central hub for all my backend, frontend and fullstack development projects, applications, and software solutions. Here, you will find a diverse collection of codebases, frameworks, and tools focused on building, automating, and enhancing backend and frontend systems and services.
 
 ## 🎯 Repository Goals
-- **Centralize Development Efforts:** Maintain a single, organized location for all backend development projects and experiments.
-- **Showcase Applications:** Feature a variety of backend applications, from RESTful APIs to AI-powered tools.
+- **Centralize Development Efforts:** Maintain a single, organized location for all development projects and experiments.
+- **Showcase Applications:** Feature a variety of applications, from RESTful APIs to AI-powered tools.
 - **Promote Reusability:** Develop modular, extensible, and reusable codebases for rapid project bootstrapping.
 - **Encourage Best Practices:** Adhere to clean code, robust architecture, and industry standards.
-- **Facilitate Learning & Collaboration:** Provide a collaborative and educational space for backend development.
+- **Facilitate Learning & Collaboration:** Provide a collaborative and educational space for development.
 
 ## ✨ Key Areas of Focus
 - **Java & Spring Boot Projects:** Modern backend applications, microservices, and APIs.
@@ -24,10 +24,10 @@ Welcome to the **Backend Development Projects Repository**! This repository serv
 - **Modular Design:** Easily extensible for new data types and LLMs.
 - **Local-First:** Runs with an embedded H2 database for easy setup.
 - **RESTful API:** CRUD operations for notes, snippets, and documents.
-- **Scheduled Tasks:** Automated reminders and content summarization.
+- **RAG:** Retrieval-Augmented Generation.
 
 Find it in the [`SmartPersonalKB-GenAI`](./SmartPersonalKB-GenAI/) directory.
 
 ---
 
-Thank you for visiting my Backend Development Projects Repository! Explore, learn, and feel free to contribute or reach out with ideas and feedback.
+Thank you for visiting my Development Projects Repository! Explore, learn, and feel free to contribute or reach out with ideas and feedback.
