@@ -1,6 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Box, Typography, TextField, Button, CircularProgress, Alert, Paper, Stack } from '@mui/material';
+import ReactMarkdown from 'react-markdown';
+
+// Add this helper component for formatting the LLM response using Markdown
+const FormattedLLMResponse: React.FC<{ response: string }> = ({ response }) => (
+  <ReactMarkdown
+    components={{
+      a: (props: any) => <a {...props} style={{ color: '#ffe066' }} target="_blank" rel="noopener noreferrer" />,
+      p: (props: any) => <Typography component="div" sx={{ mb: 2 }}>{props.children}</Typography>,
+      li: (props: any) => <li style={{ marginBottom: '0.5em' }}>{props.children}</li>
+    }}
+  >
+    {response}
+  </ReactMarkdown>
+);
 
 const LLM: React.FC = () => {
   const [input, setInput] = useState('');
@@ -79,7 +93,7 @@ const LLM: React.FC = () => {
         {response && (
           <Paper sx={{ p: 2, mt: 2, bgcolor: 'rgba(35,41,70,0.98)', color: '#fff', borderRadius: 3 }}>
             <Typography variant="subtitle1" fontWeight={700} gutterBottom sx={{ color: '#ffe066' }}>Response:</Typography>
-            <Typography>{response}</Typography>
+            <FormattedLLMResponse response={response} />
           </Paper>
         )}
       </Paper>
