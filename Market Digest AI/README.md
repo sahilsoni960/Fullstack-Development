@@ -150,3 +150,34 @@ graph TD
 - Dark/light mode toggle
 - Loading skeletons for async data
 - Error messages for failed API calls 
+
+---
+
+## Recent Updates (2025)
+
+- **Backend:**
+  - Enhanced Gemini LLM prompt for more detailed, multi-paragraph summaries suitable for business/finance users.
+  - Added robust logging for Gemini API responses and errors to aid debugging and transparency.
+  - Improved error handling for LLM/API failures, with clear fallback behavior.
+  - Updated Gemini API endpoint configuration to use the correct v1 model path.
+- **Frontend:**
+  - Company summary cards now support multi-paragraph summaries and preserve formatting for better readability.
+  - No truncation of summaries; full AI output is visible to the user.
+- **DevOps:**
+  - Project structure and codebase pushed to GitHub ([Fullstack-Development](https://github.com/sahilsoni960/Fullstack-Development)).
+
+---
+
+## Troubleshooting & Tips
+
+- **Gemini API 404 or Model Not Found:**
+  - Ensure your `application.properties` uses the correct endpoint:
+    ```
+    llm.gemini.api.url=https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}
+    ```
+  - The old `v1beta` endpoint is deprecated and will cause errors.
+- **LLM Summaries Not Showing or Truncated:**
+  - Check backend logs for Gemini API errors or parsing issues.
+  - Make sure your API key is valid and has access to Gemini Pro.
+- **Frontend Not Showing Full Summary:**
+  - The summary card now uses `white-space: pre-line` and supports multi-paragraph text for full visibility. 
