@@ -37,7 +37,7 @@ A modern Spring Boot application that allows users to store, organize, and searc
 
 ### 1. **Architecture**
 - **Backend:** Java, Spring Boot
-- **Database:** H2 (dev), MySQL/Postgres (prod)
+- **Database:** H2 (dev)
 - **LLM Integration:** Google Gemini LLM API (cloud REST API)
 - **Testing:** JUnit, Mockito
 
