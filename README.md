@@ -28,6 +28,18 @@ Welcome to the **Fullstack Development Projects Repository**! This repository se
 
 Find it in the [`SmartPersonalKB-GenAI`](./SmartPersonalKB-GenAI/) directory.
 
+## 📂 Featured Project: Market Digest AI
+
+**Market Digest AI** is a web dashboard for monitoring global company news and trends. Users can search, filter, and select companies, then view the latest news and trending information, all in one place. The dashboard fetches real-time news using NewsAPI.org and leverages the Gemini LLM API to generate summaries, extract key points, and provide sentiment/context analysis for each company's news.
+
+- **Fullstack Solution:** Java Spring Boot backend (REST API) and React frontend (Material UI).
+- **Real-Time News:** Fetches and displays the latest news for selected companies.
+- **AI-Powered Summaries:** Uses Gemini LLM for news summarization, key point extraction, and sentiment analysis.
+- **Modern UI:** Responsive, card-based, dark-themed dashboard with multi-company selection and comparison.
+- **Separation of Concerns:** Clean API boundaries and robust error handling.
+
+Find it in the [`Market Digest AI`](./Market%20Digest%20AI/) directory.
+
 ---
 
 Thank you for visiting my Development Projects Repository! Explore, learn, and feel free to contribute or reach out with ideas and feedback.
