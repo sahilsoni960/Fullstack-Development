@@ -181,3 +181,15 @@ graph TD
   - Make sure your API key is valid and has access to Gemini Pro.
 - **Frontend Not Showing Full Summary:**
   - The summary card now uses `white-space: pre-line` and supports multi-paragraph text for full visibility. 
+
+---
+
+## Health Check Endpoint
+
+- **Endpoint:** `GET /api/health`
+- **Purpose:** Returns a simple status to indicate the backend server is running and healthy.
+- **Usage:** Used by monitoring tools, load balancers, or for manual checks to verify backend availability.
+- **Sample Response:**
+  ```json
+  { "status": "UP" }
+  ``` 
