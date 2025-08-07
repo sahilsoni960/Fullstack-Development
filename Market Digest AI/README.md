@@ -1,4 +1,4 @@
-# Market Digest AI
+🗞️ Market Digest AI – Personalized News Summarizer with Generative AI
 
 ## Project Overview
 
