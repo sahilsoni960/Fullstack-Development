@@ -1,11 +1,15 @@
-🗞️ Market Digest AI – Personalized News Summarizer with Generative AI
-
-## Project Overview
-
-**Market Digest AI** is a web dashboard that enables users to search, filter, and select companies worldwide, then view the latest news and trending information about those companies. The dashboard fetches real-time news using NewsAPI.org and leverages the Gemini LLM API to generate summaries, extract key points, and provide sentiment/context analysis for each company's news. 
----
+# Market Digest AI – Personalized News Summarizer with Generative AI
 
 ## Technologies Used
+
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=FFD62E)
+![MUI](https://img.shields.io/badge/MUI-007FFF?style=for-the-badge&logo=mui&logoColor=white)
+![Gemini LLM API](https://img.shields.io/badge/Gemini%20LLM%20API-4285F4?style=for-the-badge&logo=google&logoColor=white)
+
 
 - **Backend:** Java Spring Boot (REST API)
 - **Frontend:** React (with Material UI)
@@ -13,6 +17,10 @@
   - [NewsAPI.org](https://newsapi.org/) (for news)
   - Gemini LLM API (for summarization/analysis, using local API key)
 - **Other:** Responsive design, dark mode, card-based UI
+
+## Project Overview
+
+**Market Digest AI** is a web dashboard that enables users to search, filter, and select companies worldwide, then view the latest news and trending information about those companies. The dashboard fetches real-time news using NewsAPI.org and leverages the Gemini LLM API to generate summaries, extract key points, and provide sentiment/context analysis for each company's news. 
 
 ---
 
