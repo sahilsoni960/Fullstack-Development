@@ -14,6 +14,8 @@ services:
         sync: false
       - key: PORT
         value: 8080
+    # Force Java environment, ignore Dockerfile
+    dockerfilePath: null
 
   - type: web
     name: market-digest-frontend
@@ -23,3 +25,5 @@ services:
     rootDir: Market Digest AI/market-digest-frontend
     buildCommand: npm install && npm run build
     startCommand: npx serve -s dist -l 3000
+    # Force Node environment, ignore Dockerfile
+    dockerfilePath: null
