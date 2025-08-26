@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CompanySearch from '../components/CompanySearch';
@@ -6,32 +6,7 @@ import CompanyCard from '../components/CompanyCard';
 import type { NewsArticle, SummarizeResponse } from '../services/api';
 import { fetchCompanies, fetchNews, fetchSummary } from '../services/api';
 
-const STATIC_NEWS: NewsArticle[] = [
-  {
-    title: 'Apple launches new iPhone',
-    description: 'The latest iPhone features a new design and improved camera.',
-    url: 'https://example.com/apple-iphone',
-    publishedAt: '2024-07-04T10:00:00Z',
-    sourceName: 'TechCrunch',
-  },
-  {
-    title: 'Apple stock hits record high',
-    description: 'Shares of Apple reached a new all-time high after strong earnings.',
-    url: 'https://example.com/apple-stock',
-    publishedAt: '2024-07-03T15:00:00Z',
-    sourceName: 'Reuters',
-  },
-];
 
-const STATIC_SUMMARY: SummarizeResponse = {
-  summary: 'Apple released a new iPhone and its stock hit a record high.',
-  keyPoints: [
-    'New iPhone launched',
-    'Improved camera',
-    'Stock at all-time high',
-  ],
-  sentiment: 'Positive',
-};
 
 const Dashboard: React.FC = () => {
   const [companies, setCompanies] = useState<string[]>([]);

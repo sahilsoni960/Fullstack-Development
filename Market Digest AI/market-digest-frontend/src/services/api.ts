@@ -12,8 +12,8 @@ export interface SummarizeResponse {
   sentiment: string;
 }
 
-const API_BASE = process.env.NODE_ENV === 'production' 
-  ? '/api'  // Use relative path in production (will be proxied by nginx)
+const API_BASE = import.meta.env.PROD 
+  ? 'https://market-digest-backend.onrender.com/api'  // Use your backend URL in production
   : 'http://localhost:8080/api';  // Use localhost in development
 
 export async function fetchCompanies(search = ''): Promise<string[]> {

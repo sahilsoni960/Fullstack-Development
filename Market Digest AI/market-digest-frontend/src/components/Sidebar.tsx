@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -48,7 +48,7 @@ const Sidebar: React.FC = () => {
         </Typography>
         <Divider sx={{ mb: 2, borderColor: 'rgba(255,255,255,0.08)' }} />
         <List sx={{ flexGrow: 1 }}>
-          {navItems.map((item, idx) => (
+          {navItems.map((item) => (
             <ListItem key={item.label} disablePadding>
               <ListItemButton
                 selected={item.active}
