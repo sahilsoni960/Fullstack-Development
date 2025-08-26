@@ -12,11 +12,13 @@ public class WebConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOriginPatterns("*")
+                registry.addMapping("/api/**")
+                        .allowedOrigins(
+                            "http://localhost:5173",
+                            "https://market-digest-frontend.onrender.com"
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(true)
                         .maxAge(3600);
             }
         };
