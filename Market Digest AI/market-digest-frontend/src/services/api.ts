@@ -12,7 +12,9 @@ export interface SummarizeResponse {
   sentiment: string;
 }
 
-const API_BASE = 'http://localhost:8080/api';
+const API_BASE = process.env.NODE_ENV === 'production' 
+  ? '/api'  // Use relative path in production (will be proxied by nginx)
+  : 'http://localhost:8080/api';  // Use localhost in development
 
 export async function fetchCompanies(search = ''): Promise<string[]> {
   const res = await fetch(`${API_BASE}/companies?search=${encodeURIComponent(search)}`);

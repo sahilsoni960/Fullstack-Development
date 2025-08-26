@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Digest AI - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Roboto', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #23255A 0%, #181A2A 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(36, 38, 58, 0.95);
+            padding: 2rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #5B5FE9;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .nav-item {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(91, 95, 233, 0.1);
+        }
+
+        .nav-item:hover {
+            background: rgba(91, 95, 233, 0.2);
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background: #5B5FE9;
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .theme-toggle {
+            background: #5B5FE9;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 24px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: #4A4ED8;
+            transform: translateY(-2px);
+        }
+
+        .company-search {
+            background: rgba(36, 38, 58, 0.95);
+            padding: 2rem;
+            border-radius: 18px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 32px 0 rgba(91,95,233,0.10);
+        }
+
+        .search-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(91, 95, 233, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #5B5FE9;
+        }
+
+        .company-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .company-tag {
+            background: #5B5FE9;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .company-tag:hover {
+            background: #4A4ED8;
+            transform: scale(1.05);
+        }
+
+        .company-tag.remove {
+            background: #FF6B6B;
+        }
+
+        .company-tag.remove:hover {
+            background: #FF5252;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .company-card {
+            background: linear-gradient(135deg, #23255A 0%, #181A2A 100%);
+            border-radius: 18px;
+            padding: 2rem;
+            box-shadow: 0 4px 32px 0 rgba(91,95,233,0.10);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .company-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #5B5FE9;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .card-content {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .news-section {
+            flex: 2;
+        }
+
+        .summary-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #FFD600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .news-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-title {
+            font-weight: 700;
+            font-size: 1.08rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .news-title:hover {
+            color: #FFD600;
+            text-decoration: underline;
+        }
+
+        .news-meta {
+            font-size: 0.9rem;
+            color: #B0B3C6;
+        }
+
+        .summary-text {
+            color: #FFD600;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            white-space: pre-line;
+        }
+
+        .key-points {
+            margin-top: 1rem;
+        }
+
+        .key-points-title {
+            font-weight: bold;
+            color: #5B5FE9;
+            margin-bottom: 0.5rem;
+        }
+
+        .key-points ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .key-points li {
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #B0B3C6;
+        }
+
+        .demo-note {
+            background: rgba(255, 214, 0, 0.1);
+            border: 1px solid rgba(255, 214, 0, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            color: #FFD600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .card-content {
+                flex-direction: column;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">📊 Market Digest AI</div>
+            <div class="nav-item active">Dashboard</div>
+            <div class="nav-item">Companies</div>
+            <div class="nav-item">News</div>
+            <div class="nav-item">Analytics</div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Topbar -->
+            <div class="topbar">
+                <h1 class="page-title">Market Dashboard</h1>
+                <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+            </div>
+
+            <!-- Demo Note -->
+            <div class="demo-note">
+                🚀 This is a demo UI showing the Market Digest AI interface. The backend services are not connected in this demo.
+            </div>
+
+            <!-- Company Search -->
+            <div class="company-search">
+                <h3 class="search-title">Select Companies to Monitor</h3>
+                <input type="text" class="search-input" placeholder="Search for companies..." id="companySearch">
+                <div class="company-tags" id="selectedCompanies">
+                    <span class="company-tag">Apple</span>
+                    <span class="company-tag">Microsoft</span>
+                    <span class="company-tag">Tesla</span>
+                </div>
+            </div>
+
+            <!-- Dashboard -->
+            <div class="dashboard" id="dashboard">
+                <!-- Company Card 1 -->
+                <div class="company-card">
+                    <h3 class="company-name">Apple Inc.</h3>
+                    <div class="card-content">
+                        <div class="news-section">
+                            <h4 class="section-title">Latest News</h4>
+                            <div class="news-item">
+                                <div class="news-title">Apple launches new iPhone with advanced AI features</div>
+                                <div class="news-meta">TechCrunch • 2 hours ago</div>
+                            </div>
+                            <div class="news-item">
+                                <div class="news-title">Apple stock reaches new all-time high after strong earnings</div>
+                                <div class="news-meta">Reuters • 5 hours ago</div>
+                            </div>
+                            <div class="news-item">
+                                <div class="news-title">Apple announces new sustainability initiatives</div>
+                                <div class="news-meta">Bloomberg • 1 day ago</div>
+                            </div>
+                        </div>
+                        <div class="summary-section">
+                            <h4 class="section-title">AI Summary</h4>
+                            <div class="summary-text">Apple continues to demonstrate strong market performance with the launch of their latest iPhone featuring advanced AI capabilities. The company's stock has reached new heights following impressive quarterly earnings, reflecting strong consumer demand and innovation leadership.
+
+The company is also making significant strides in sustainability, aligning with growing environmental consciousness among consumers and investors.</div>
+                            <div class="key-points">
+                                <div class="key-points-title">Key Points:</div>
+                                <ul>
+                                    <li>New iPhone launch with AI features</li>
+                                    <li>Stock at all-time high</li>
+                                    <li>Strong quarterly earnings</li>
+                                    <li>New sustainability initiatives</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Company Card 2 -->
+                <div class="company-card">
+                    <h3 class="company-name">Microsoft Corporation</h3>
+                    <div class="card-content">
+                        <div class="news-section">
+                            <h4 class="section-title">Latest News</h4>
+                            <div class="news-item">
+                                <div class="news-title">Microsoft expands Azure cloud services globally</div>
+                                <div class="news-meta">ZDNet • 3 hours ago</div>
+                            </div>
+                            <div class="news-item">
+                                <div class="news-title">Microsoft Teams adds new collaboration features</div>
+                                <div class="news-meta">The Verge • 6 hours ago</div>
+                            </div>
+                            <div class="news-item">
+                                <div class="news-title">Microsoft reports strong cloud revenue growth</div>
+                                <div class="news-meta">CNBC • 1 day ago</div>
+                            </div>
+                        </div>
+                        <div class="summary-section">
+                            <h4 class="section-title">AI Summary</h4>
+                            <div class="summary-text">Microsoft is aggressively expanding its cloud infrastructure and collaboration tools, positioning itself as a leader in the enterprise software market. The company's Azure cloud services are experiencing significant growth, driving strong financial performance.
+
+Recent updates to Microsoft Teams demonstrate the company's commitment to enhancing remote work capabilities and maintaining competitive advantage in the collaboration space.</div>
+                            <div class="key-points">
+                                <div class="key-points-title">Key Points:</div>
+                                <ul>
+                                    <li>Azure cloud expansion</li>
+                                    <li>Teams feature updates</li>
+                                    <li>Strong cloud revenue</li>
+                                    <li>Enterprise focus</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Company Card 3 -->
+                <div class="company-card">
+                    <h3 class="company-name">Tesla Inc.</h3>
+                    <div class="card-content">
+                        <div class="news-section">
+                            <h4 class="section-title">Latest News</h4>
+                            <div class="news-item">
+                                <div class="news-title">Tesla delivers record number of vehicles in Q3</div>
+                                <div class="news-meta">Electrek • 4 hours ago</div>
+                            </div>
+                            <div class="news-item">
+                                <div class="news-title">Tesla announces new battery technology breakthrough</div>
+                                <div class="news-meta">TechCrunch • 8 hours ago</div>
+                            </div>
+                            <div class="news-item">
+                                <div class="news-title">Tesla expands Supercharger network in Europe</div>
+                                <div class="news-meta">Reuters • 2 days ago</div>
+                            </div>
+                        </div>
+                        <div class="summary-section">
+                            <h4 class="section-title">AI Summary</h4>
+                            <div class="summary-text">Tesla continues to dominate the electric vehicle market with record-breaking delivery numbers and technological innovations. The company's new battery technology represents a significant advancement that could further solidify its market leadership.
+
+Expansion of the Supercharger network demonstrates Tesla's commitment to infrastructure development, addressing one of the key concerns for EV adoption.</div>
+                            <div class="key-points">
+                                <div class="key-points-title">Key Points:</div>
+                                <ul>
+                                    <li>Record Q3 deliveries</li>
+                                    <li>Battery technology breakthrough</li>
+                                    <li>Supercharger network expansion</li>
+                                    <li>EV market leadership</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const button = document.querySelector('.theme-toggle');
+            
+            if (body.style.background.includes('light')) {
+                body.style.background = 'linear-gradient(135deg, #23255A 0%, #181A2A 100%)';
+                button.textContent = '🌙 Dark Mode';
+            } else {
+                body.style.background = 'linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%)';
+                button.textContent = '☀️ Light Mode';
+            }
+        }
+
+        // Company search functionality
+        document.getElementById('companySearch').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            // This would normally filter companies from an API
+            console.log('Searching for:', searchTerm);
+        });
+
+        // Add click handlers to news items
+        document.querySelectorAll('.news-title').forEach(title => {
+            title.addEventListener('click', function() {
+                alert('In a real application, this would open the full article or navigate to the news source.');
+            });
+        });
+
+        // Company tag removal
+        document.querySelectorAll('.company-tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                if (this.classList.contains('remove')) {
+                    this.remove();
+                } else {
+                    this.classList.add('remove');
+                    this.textContent = 'Remove ' + this.textContent;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
