@@ -1,30 +1,8 @@
-# Maven
 target/
 !target/*.jar
-!target/classes/
-!target/maven-archiver/
-!target/maven-status/
-!target/generated-sources/
-!target/generated-test-sources/
-
-# IDE
-.idea/
-*.iml
-.vscode/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Git
-.git/
+.git
 .gitignore
-
-# Logs
+README.md
+DEPLOYMENT_GUIDE.md
+.vscode/
 *.log
-
-# Temporary files
-*.tmp
-*.temp
