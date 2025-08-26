@@ -1,7 +1,7 @@
 services:
   - type: web
     name: market-digest-backend
-    env: docker
+    env: java
     plan: free
     region: oregon
     rootDir: Market Digest AI/market-digest-backend
@@ -17,7 +17,7 @@ services:
 
   - type: web
     name: market-digest-frontend
-    env: docker
+    env: node
     plan: free
     region: oregon
     rootDir: Market Digest AI/market-digest-frontend
