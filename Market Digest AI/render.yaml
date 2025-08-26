@@ -14,3 +14,12 @@ services:
         sync: false
       - key: PORT
         value: 8080
+
+  - type: web
+    name: market-digest-frontend
+    env: docker
+    plan: free
+    region: oregon
+    rootDir: Market Digest AI/market-digest-frontend
+    buildCommand: npm install && npm run build
+    startCommand: npx serve -s dist -l 3000
