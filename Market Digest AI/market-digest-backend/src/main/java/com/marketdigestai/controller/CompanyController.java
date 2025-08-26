@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "https://market-digest-frontend.onrender.com"})
 @RestController
 public class CompanyController {
     private static final List<String> COMPANIES = Arrays.asList(
