@@ -12,8 +12,8 @@ export interface SummarizeResponse {
   sentiment: string;
 }
 
-const API_BASE = import.meta.env.PROD 
-  ? '/api'  // Use relative path in production (will be proxied by nginx)
+const API_BASE = import.meta.env.PROD
+  ? '/proxy-api'  // Use proxy path in production (will be proxied by nginx)
   : 'http://localhost:8080/api';  // Use localhost in development
 
 export async function fetchCompanies(search = ''): Promise<string[]> {
