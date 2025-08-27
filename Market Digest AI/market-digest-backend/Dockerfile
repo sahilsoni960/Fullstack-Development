@@ -1,27 +1,37 @@
-# Use Java 17 base image
-FROM openjdk:17-jdk-slim
-
-# Set working directory
+# Multi-stage build for both backend and frontend
+FROM openjdk:17-jdk-slim as backend-builder
 WORKDIR /app
-
-# Copy Maven files first for better caching
 COPY pom.xml .
 COPY src ./src
-
-# Install Maven
 RUN apt-get update && apt-get install -y maven
-
-# Build the application
 RUN mvn clean package -DskipTests
 
-# Copy the built JAR
-COPY target/market-digest-backend-0.0.1-SNAPSHOT.jar app.jar
+FROM node:18-alpine as frontend-builder
+WORKDIR /app
+COPY ../market-digest-frontend/package*.json ./
+RUN npm ci
+COPY ../market-digest-frontend/ ./
+RUN npm run build
 
-# Expose port
-EXPOSE 8080
+FROM openjdk:17-jdk-slim
+WORKDIR /app
 
-# Set environment variables
-ENV PORT=8080
+# Install nginx for serving frontend
+RUN apt-get update && apt-get install -y nginx
 
-# Run the application
-CMD ["java", "-jar", "app.jar"]
+# Copy backend JAR
+COPY --from=backend-builder /app/target/market-digest-backend-0.0.1-SNAPSHOT.jar app.jar
+
+# Copy frontend build
+COPY --from=frontend-builder /app/dist /var/www/html
+
+# Copy nginx config
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose ports
+EXPOSE 8080 80
+
+# Start both services
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+CMD ["/start.sh"]

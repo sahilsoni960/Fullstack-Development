@@ -1,0 +1,14 @@
+{
+  "name": "frontend-test-server",
+  "version": "1.0.0",
+  "description": "Test server for frontend with API proxy",
+  "main": "test-server.js",
+  "scripts": {
+    "test": "node test-server.js",
+    "install-deps": "npm install express http-proxy-middleware"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6"
+  }
+}
