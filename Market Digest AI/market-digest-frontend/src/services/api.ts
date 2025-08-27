@@ -13,7 +13,7 @@ export interface SummarizeResponse {
 }
 
 const API_BASE = import.meta.env.PROD
-  ? '/proxy-api'  // Use proxy path in production (will be proxied by nginx)
+  ? '/proxy-api'  // Use proxy path in production (will be proxied by nginx) - FORCE REDEPLOY
   : 'http://localhost:8080/api';  // Use localhost in development
 
 export async function fetchCompanies(search = ''): Promise<string[]> {
