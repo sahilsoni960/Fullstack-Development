@@ -29,6 +29,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        
+        <!-- Spring Boot Security Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
         <!-- Validation (Hibernate Validator) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
