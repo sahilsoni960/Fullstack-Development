@@ -1,23 +1,24 @@
-# Backend-only Dockerfile
-FROM openjdk:17-jdk-slim
-WORKDIR /app
+# Multi-stage build for Market Digest AI backend
 
-# Copy Maven files
-COPY pom.xml .
+# 1) Build stage: compile the Spring Boot app
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+WORKDIR /workspace
+
+# Copy sources from the current build context (backend folder)
+COPY pom.xml ./
 COPY src ./src
 
-# Install Maven and build
-RUN apt-get update && apt-get install -y maven
-RUN mvn clean package -DskipTests
+# Build the JAR
+RUN mvn -B -DskipTests clean package
 
-# Copy the built JAR
-COPY target/market-digest-backend-0.0.1-SNAPSHOT.jar app.jar
+# 2) Runtime stage: minimal JRE image
+FROM eclipse-temurin:17-jre-jammy
+WORKDIR /app
 
-# Expose port
+# Copy the built JAR from the build stage (match any .jar)
+COPY --from=build /workspace/target/*.jar app.jar
+
+# Expose port and run
 EXPOSE 8080
-
-# Set environment variables
 ENV PORT=8080
-
-# Run the application
 CMD ["java", "-jar", "app.jar"]
