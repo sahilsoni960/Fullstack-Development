@@ -12,9 +12,12 @@ export interface SummarizeResponse {
   sentiment: string;
 }
 
-const API_BASE = import.meta.env.PROD
-  ? '/proxy-api'  // Use proxy path in production (will be proxied by nginx) - FORCE REDEPLOY
-  : 'http://localhost:8080/api';  // Use localhost in development
+// In development, the frontend runs on a different port from the backend, so we use the full localhost URL.
+// In production (on Netlify), the API calls will be proxied to the Koyeb backend.
+// We will use a relative path for production, which will be handled by Netlify's proxy rules.
+const API_BASE = import.meta.env.DEV
+  ? 'http://localhost:8080/api' 
+  : '/api';
 
 export async function fetchCompanies(search = ''): Promise<string[]> {
   const res = await fetch(`${API_BASE}/companies?search=${encodeURIComponent(search)}`);
@@ -40,4 +43,4 @@ export async function fetchSummary(company: string, articles: NewsArticle[]): Pr
   });
   if (!res.ok) throw new Error('Failed to fetch summary');
   return res.json();
-} 
+}

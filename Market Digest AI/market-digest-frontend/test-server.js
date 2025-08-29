@@ -13,16 +13,16 @@ const PORT = 3001;
 // Serve static files from dist folder
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Proxy API calls to your backend
+// Proxy API calls to your local backend for testing
 app.use('/api', createProxyMiddleware({
-  target: 'https://market-digest-backend.onrender.com',
+  target: 'http://localhost:8080',
   changeOrigin: true,
-  secure: true,
+  secure: false, // Set to false for local http backend
   onProxyReq: (proxyReq, req, res) => {
-    console.log(`🔄 Proxying ${req.method} ${req.path} to backend`);
+    console.log(`🔄 Proxying ${req.method} ${req.path} to local backend`);
   },
   onProxyRes: (proxyRes, req, res) => {
-    console.log(`✅ Backend responded with status ${proxyRes.statusCode}`);
+    console.log(`✅ Local backend responded with status ${proxyRes.statusCode}`);
   }
 }));
 
@@ -33,7 +33,7 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, () => {
   console.log('🚀 Test server running at http://localhost:3001');
-  console.log('🔗 API calls will be proxied to your backend');
+  console.log('🔗 API calls will be proxied to your local backend');
   console.log('📱 Open http://localhost:3001 in your browser');
   console.log('⏹️  Press Ctrl+C to stop');
 });

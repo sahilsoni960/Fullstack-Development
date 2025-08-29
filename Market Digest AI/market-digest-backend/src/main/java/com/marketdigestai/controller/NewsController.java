@@ -3,7 +3,7 @@ package com.marketdigestai.controller;
 import com.marketdigestai.dto.NewsArticleDto;
 import com.marketdigestai.dto.NewsRequestDto;
 import com.marketdigestai.service.NewsApiService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,10 +17,14 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/news")
-@RequiredArgsConstructor
 @CrossOrigin(origins = {"http://localhost:5173", "https://market-digest-frontend.onrender.com"})
 public class NewsController {
     private final NewsApiService newsApiService;
+
+    @Autowired
+    public NewsController(NewsApiService newsApiService) {
+        this.newsApiService = newsApiService;
+    }
 
     @PostMapping
     public ResponseEntity<Map<String, List<NewsArticleDto>>> getNewsForCompanies(@RequestBody NewsRequestDto request) {
@@ -30,4 +34,4 @@ public class NewsController {
         }
         return ResponseEntity.ok(result);
     }
-} 
+}

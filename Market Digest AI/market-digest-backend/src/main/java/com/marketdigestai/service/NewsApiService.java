@@ -2,7 +2,7 @@ package com.marketdigestai.service;
 
 import com.marketdigestai.config.NewsApiConfig;
 import com.marketdigestai.dto.NewsArticleDto;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -13,10 +13,14 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 public class NewsApiService {
     private final NewsApiConfig newsApiConfig;
     private final RestTemplate restTemplate = new RestTemplate();
+
+    @Autowired
+    public NewsApiService(NewsApiConfig newsApiConfig) {
+        this.newsApiConfig = newsApiConfig;
+    }
 
     public List<NewsArticleDto> fetchNewsForCompany(String company) {
         String url = UriComponentsBuilder.fromHttpUrl("https://newsapi.org/v2/everything")
@@ -46,4 +50,4 @@ public class NewsApiService {
         }
         return articles;
     }
-} 
+}

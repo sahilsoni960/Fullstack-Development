@@ -7,17 +7,85 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material/styles';
+import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline';
+import HighlightOff from '@mui/icons-material/HighlightOff';
+import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import type { NewsArticle, SummarizeResponse } from '../services/api';
 
 interface CompanyCardProps {
   company: string;
   articles: NewsArticle[];
   summary?: SummarizeResponse;
+  isLoadingSummary?: boolean;
 }
 
-const CompanyCard: React.FC<CompanyCardProps> = ({ company, articles, summary }) => {
+const CompanyCard: React.FC<CompanyCardProps> = ({ company, articles, summary, isLoadingSummary }) => {
   const theme = useTheme();
+
+  const getSentimentStyle = (sentiment: string) => {
+    const sentimentLower = sentiment.toLowerCase();
+    if (sentimentLower.includes('positive')) {
+      return { color: 'success' as const, icon: <CheckCircleOutline /> };
+    }
+    if (sentimentLower.includes('negative')) {
+      return { color: 'error' as const, icon: <HighlightOff /> };
+    }
+    return { color: 'info' as const, icon: <InfoOutlined /> };
+  };
+
+  const renderSummary = () => {
+    if (isLoadingSummary) {
+      return (
+        <Box sx={{ display: 'flex', alignItems: 'center', minHeight: 100, p: 2 }}>
+          <CircularProgress size={24} />
+          <Typography variant="body2" color="text.secondary" sx={{ ml: 2 }}>
+            Generating AI summary...
+          </Typography>
+        </Box>
+      );
+    }
+
+    if (summary && summary.summary) {
+      let parsedSummary: { summary: string; sentiment: string; };
+      try {
+        // Clean the AI response by removing markdown fences before parsing.
+        const cleanedJsonString = summary.summary.replace(/```json\n|```/g, '').trim();
+        parsedSummary = JSON.parse(cleanedJsonString);
+      } catch (error) {
+        // If parsing fails, it's likely a raw string. Use it directly.
+        // This ensures the UI doesn't break if the AI returns non-JSON text.
+        parsedSummary = { summary: summary.summary, sentiment: summary.sentiment || 'Neutral' };
+      }
+
+      const sentimentStyle = getSentimentStyle(parsedSummary.sentiment);
+
+      return (
+        <Box>
+          <Chip
+            icon={sentimentStyle.icon}
+            label={`Sentiment: ${parsedSummary.sentiment}`}
+            color={sentimentStyle.color}
+            variant="filled"
+            sx={{ mb: 2, fontWeight: 600 }}
+          />
+          <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }} paragraph>
+            {parsedSummary.summary}
+          </Typography>
+        </Box>
+      );
+    }
+
+    return (
+        <Box sx={{ display: 'flex', alignItems: 'center', minHeight: 100, p: 2 }}>
+            <InfoOutlined sx={{ color: 'text.secondary', mr: 1 }} />
+            <Typography variant="body2" color="text.secondary">No summary available.</Typography>
+        </Box>
+    );
+  };
+
   return (
     <Card sx={{ mb: 3 }}>
       <CardContent>
@@ -74,7 +142,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company, articles, summary })
                           color: theme.palette.text.secondary,
                         }}
                       >
-                        {article.sourceName} • {new Date(article.publishedAt).toLocaleString()}
+                        {new Date(article.publishedAt).toLocaleString()}
                       </span>
                     }
                   />
@@ -88,22 +156,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company, articles, summary })
             <Typography variant="subtitle2" gutterBottom>
               AI Summary
             </Typography>
-            {summary ? (
-              <>
-                <Typography variant="body1" sx={{ mb: 1, color: theme.palette.secondary.main, fontWeight: 600, whiteSpace: 'pre-line' }} paragraph>
-                  {summary.summary}
-                </Typography>
-                <Typography variant="body2" sx={{ fontWeight: 'bold', color: theme.palette.primary.main }}>Key Points:</Typography>
-                <ul style={{ marginTop: 4, marginBottom: 8, paddingLeft: 18 }}>
-                  {summary.keyPoints.map((kp, i) => (
-                    <li key={i} style={{ color: theme.palette.text.primary, marginBottom: 2 }}>{kp}</li>
-                  ))}
-                </ul>
-                <Typography variant="body2" color="text.secondary">Sentiment: {summary.sentiment}</Typography>
-              </>
-            ) : (
-              <Typography variant="body2" color="text.secondary">No summary available.</Typography>
-            )}
+            {renderSummary()}
           </Box>
         </Box>
       </CardContent>
@@ -111,4 +164,4 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company, articles, summary })
   );
 };
 
-export default CompanyCard; 
+export default CompanyCard;

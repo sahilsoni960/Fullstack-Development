@@ -1,13 +1,17 @@
+# Stage 1: Build the React application
 FROM node:18-alpine as build
+
 WORKDIR /app
+
 COPY package*.json ./
+
+# Use npm ci for clean, reproducible builds
 RUN npm ci
+
 COPY . .
+
+# Build the static assets
 RUN npm run build
 
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
-
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# The output of this stage is the /app/dist directory,
+# which can be used by other processes or deployment platforms like Netlify.

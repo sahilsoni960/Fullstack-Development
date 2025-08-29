@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marketdigestai.config.GeminiApiConfig;
 import com.marketdigestai.dto.NewsArticleDto;
 import com.marketdigestai.dto.SummarizeResponseDto;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,12 +18,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class GeminiApiService {
     private static final Logger logger = LoggerFactory.getLogger(GeminiApiService.class);
     private final GeminiApiConfig geminiApiConfig;
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Autowired
+    public GeminiApiService(GeminiApiConfig geminiApiConfig) {
+        this.geminiApiConfig = geminiApiConfig;
+    }
 
     public SummarizeResponseDto summarize(String company, List<NewsArticleDto> articles) {
         // Build prompt for Gemini
@@ -92,4 +96,4 @@ public class GeminiApiService {
         String sentiment = "Neutral";
         return new SummarizeResponseDto(summary, keyPoints, sentiment);
     }
-} 
+}

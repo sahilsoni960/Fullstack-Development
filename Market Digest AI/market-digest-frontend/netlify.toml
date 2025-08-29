@@ -1,0 +1,22 @@
+# Netlify configuration file
+
+# Build settings
+[build]
+  # Directory to change to before starting a build
+  base = "market-digest-frontend"
+  # Command to build the project
+  command = "npm run build"
+  # Directory that contains the built assets
+  publish = "market-digest-frontend/dist"
+
+# Redirects and proxy rules
+[[redirects]]
+  # The path on your Netlify site that will be proxied
+  from = "/api/*"
+  # The backend URL on Koyeb where the requests will be sent
+  # IMPORTANT: You will need to set this as an environment variable in Netlify
+  to = "${KOYEB_BACKEND_URL}/api/:splat"
+  # The HTTP status code for the redirect
+  status = 200
+  # Force the redirect to be a proxy
+  force = true

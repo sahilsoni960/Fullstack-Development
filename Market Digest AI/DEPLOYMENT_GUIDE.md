@@ -21,9 +21,7 @@ The backend is already configured to use environment variables:
 ### 1.2 Files Already Created:
 - ✅ `market-digest-backend/Dockerfile`
 - ✅ `market-digest-backend/.dockerignore`
-- ✅ `market-digest-backend/render.yaml`
 - ✅ `market-digest-frontend/Dockerfile`
-- ✅ `market-digest-frontend/nginx.conf`
 - ✅ `market-digest-frontend/.dockerignore`
 
 ---

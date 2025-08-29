@@ -1,4 +1,4 @@
-# Build stage
+# Stage 1: Build the React application for deployment
 FROM node:18-alpine as build
 
 # Set working directory
@@ -7,26 +7,14 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
+# Install dependencies for production
 RUN npm ci --only=production
 
 # Copy source code
 COPY . .
 
-# Build the app
+# Build the static assets
 RUN npm run build
 
-# Production stage
-FROM nginx:alpine
-
-# Copy built files from build stage
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# Expose port
-EXPOSE 80
-
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# The output of this stage is the /app/dist directory.
+# A platform like Netlify can be configured to use this directory for deployment.
