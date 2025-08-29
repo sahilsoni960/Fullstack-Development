@@ -12,12 +12,9 @@ export interface SummarizeResponse {
   sentiment: string;
 }
 
-// In development, the frontend runs on a different port from the backend, so we use the full localhost URL.
-// In production (on Netlify), the API calls will be proxied to the Koyeb backend.
-// We will use a relative path for production, which will be handled by Netlify's proxy rules.
-const API_BASE = import.meta.env.DEV
-  ? 'http://localhost:8080/api' 
-  : '/api';
+// Prefer explicit env override; fallback to localhost in dev and /api in prod
+const API_BASE = (import.meta as any).env?.VITE_API_BASE
+  ?? (import.meta.env.DEV ? 'http://localhost:8080/api' : '/api');
 
 export async function fetchCompanies(search = ''): Promise<string[]> {
   const res = await fetch(`${API_BASE}/companies?search=${encodeURIComponent(search)}`);
