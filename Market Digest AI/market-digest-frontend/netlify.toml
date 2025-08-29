@@ -2,12 +2,10 @@
 
 # Build settings
 [build]
-  # Directory to change to before starting a build
-  base = "market-digest-frontend"
   # Command to build the project
   command = "npm run build"
   # Directory that contains the built assets
-  publish = "market-digest-frontend/dist"
+  publish = "dist"
 
 # Redirects and proxy rules
 [[redirects]]

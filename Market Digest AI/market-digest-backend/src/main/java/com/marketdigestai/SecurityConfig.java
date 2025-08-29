@@ -32,10 +32,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Allow requests from the local dev server and the future Netlify frontend
-        configuration.setAllowedOrigins(Arrays.asList(
-            "http://localhost:5173", 
-            "https://YOUR_NETLIFY_SITE_NAME.netlify.app" // <-- IMPORTANT: Replace with your actual Netlify URL
+        // Allow requests from local dev and any Netlify site (production)
+        configuration.setAllowedOriginPatterns(Arrays.asList(
+            "http://localhost:5173",
+            "https://*.netlify.app"
         ));
         // Allow standard HTTP methods
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));

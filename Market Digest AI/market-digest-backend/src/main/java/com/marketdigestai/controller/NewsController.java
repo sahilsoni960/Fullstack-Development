@@ -5,7 +5,6 @@ import com.marketdigestai.dto.NewsRequestDto;
 import com.marketdigestai.service.NewsApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/news")
-@CrossOrigin(origins = {"http://localhost:5173", "https://market-digest-frontend.onrender.com"})
 public class NewsController {
     private final NewsApiService newsApiService;
 
