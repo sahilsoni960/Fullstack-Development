@@ -1,0 +1,26 @@
+# IDE
+.idea/
+.vscode/
+
+# Node / Vite
+market-digest-frontend/node_modules/
+market-digest-frontend/dist/
+market-digest-frontend/.vite/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env files
+.env
+.env.*.local
+
+# Java / Maven
+market-digest-backend/target/
+
+# OS
+.DS_Store
+Thumbs.db
+

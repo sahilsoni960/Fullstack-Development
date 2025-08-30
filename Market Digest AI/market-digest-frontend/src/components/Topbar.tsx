@@ -8,35 +8,39 @@ import { useTheme } from '@mui/material/styles';
 const Topbar: React.FC = () => {
   const theme = useTheme();
   return (
-    <AppBar
-      position="static"
-      elevation={4}
-      sx={{
-        mb: 3,
-        background: 'linear-gradient(90deg, #23255A 0%, #5B5FE9 100%)',
-        boxShadow: '0 2px 16px 0 rgba(91,95,233,0.10)',
-        borderBottomLeftRadius: 18,
-        borderBottomRightRadius: 18,
-        px: 3,
-      }}
-    >
-      <Toolbar sx={{ minHeight: 64 }}>
+    <AppBar position="static" elevation={6} sx={{ mb: 3, px: 3 }}>
+      <Toolbar sx={{ minHeight: { xs: 68, md: 76 } }}>
         <Typography
-          variant="h5"
+          variant="h4"
           sx={{
-            flexGrow: 1,
-            fontWeight: 800,
-            color: theme.palette.secondary.main,
-            letterSpacing: 1,
+            fontWeight: 900,
+            letterSpacing: 0.6,
+            whiteSpace: 'nowrap',
+            fontSize: { xs: '1.6rem', sm: '1.8rem', md: '2rem' },
+            lineHeight: 1.2,
           }}
         >
-          Company News Dashboard
+          <Box
+            component="span"
+            sx={{
+              display: 'inline-block',
+              px: { xs: 2, md: 2.5 },
+              py: { xs: 0.5, md: 0.75 },
+              borderRadius: 9999,
+              // Simple blue pill
+              background: 'linear-gradient(135deg, #1E88E5 0%, #1976D2 100%)',
+              color: '#FFFFFF',
+              boxShadow: '0 8px 20px rgba(0,0,0,0.25)',
+              textShadow: '0 1px 1px rgba(0,0,0,0.15)'
+            }}
+          >
+            Company News Dashboard
+          </Box>
         </Typography>
-        {/* User actions placeholder (profile, notifications, etc.) */}
-        <Box />
+        <Box sx={{ flex: 1 }} />
       </Toolbar>
     </AppBar>
   );
 };
 
-export default Topbar; 
+export default Topbar;

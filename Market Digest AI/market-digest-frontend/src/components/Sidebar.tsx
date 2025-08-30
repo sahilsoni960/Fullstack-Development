@@ -13,17 +13,17 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import { useTheme } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
-import { ColorModeContext } from '../App';
+import { ColorModeContext } from '../theme/ColorModeContext';
 
 const drawerWidth = 240;
 
 const navItems = [
   { label: 'Dashboard', icon: <DashboardIcon />, active: true },
-  // Add more nav items here as needed
 ];
 
 const Sidebar: React.FC = () => {
   const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const colorMode = useContext(ColorModeContext);
   return (
     <Drawer
@@ -34,57 +34,91 @@ const Sidebar: React.FC = () => {
         [`& .MuiDrawer-paper`]: {
           width: drawerWidth,
           boxSizing: 'border-box',
-          background: 'linear-gradient(135deg, #23255A 0%, #181A2A 100%)',
+          // Theme-aware background
+          background: isDark
+            ? 'linear-gradient(180deg, rgba(28,28,28,0.72) 0%, rgba(14,14,14,0.62) 100%)'
+            : '#FFFFFF',
+          backdropFilter: isDark ? 'blur(10px)' : 'none',
+          WebkitBackdropFilter: isDark ? 'blur(10px)' : 'none',
           color: theme.palette.text.primary,
-          borderRight: 'none',
+          borderRight: isDark ? '1px solid rgba(255,255,255,0.10)' : '1px solid rgba(17,24,39,0.08)',
         },
         display: { xs: 'none', sm: 'block' },
       }}
       open
     >
       <Box sx={{ p: 3, display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <Typography variant="h5" sx={{ fontWeight: 800, letterSpacing: 1, mb: 2, color: theme.palette.secondary.main }}>
-          Market Digest AI
+        <Typography variant="h5" sx={{ fontWeight: 900, letterSpacing: 0.5, mb: 2 }}>
+          <Box
+            component="span"
+            sx={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              px: 1.5,
+              py: 0.5,
+              borderRadius: 1.5,
+              // Simple blue pill to match Topbar
+              background: 'linear-gradient(135deg, #1E88E5 0%, #1976D2 100%)',
+              color: '#FFFFFF',
+              boxShadow: '0 6px 16px rgba(0,0,0,0.35)',
+              whiteSpace: 'nowrap',
+              fontSize: '1.1rem',
+              lineHeight: 1.2,
+              maxWidth: '100%'
+            }}
+          >
+            Market Digest AI
+          </Box>
         </Typography>
-        <Divider sx={{ mb: 2, borderColor: 'rgba(255,255,255,0.08)' }} />
+        <Divider sx={{ mb: 2 }} />
         <List sx={{ flexGrow: 1 }}>
           {navItems.map((item) => (
             <ListItem key={item.label} disablePadding>
               <ListItemButton
                 selected={item.active}
                 sx={{
+                  position: 'relative',
+                  overflow: 'hidden',
                   borderRadius: 2,
                   mb: 1,
-                  color: item.active ? theme.palette.secondary.main : theme.palette.text.secondary,
-                  background: item.active ? 'rgba(255,214,0,0.08)' : 'transparent',
+                  color: item.active ? theme.palette.text.primary : theme.palette.text.secondary,
+                  background: item.active ? (isDark ? 'rgba(255,255,255,0.08)' : 'rgba(17,24,39,0.06)') : 'transparent',
+                  border: item.active ? (isDark ? '1px solid rgba(255,255,255,0.18)' : '1px solid rgba(17,24,39,0.12)') : '1px solid transparent',
                   '&:hover, &:focus': {
-                    background: 'rgba(255,214,0,0.15)',
-                    color: theme.palette.secondary.main,
+                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(17,24,39,0.04)',
+                    color: theme.palette.text.primary,
+                    outline: isDark ? '1px solid rgba(255,255,255,0.16)' : '1px solid rgba(17,24,39,0.12)'
                   },
-                  transition: 'all 0.2s',
+                  '&:active': {
+                    transform: 'translateY(0.5px)',
+                  },
+                  transition: 'outline 0.15s ease, background 0.15s ease, transform 0.05s ease',
+                  // Ripple color
+                  '& .MuiTouchRipple-child': { backgroundColor: isDark ? 'rgba(66,133,244,0.35)' : 'rgba(25,118,210,0.25)' },
                 }}
               >
                 <ListItemIcon sx={{ color: 'inherit', minWidth: 36 }}>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.label} primaryTypographyProps={{ fontWeight: item.active ? 700 : 500 }} />
+                <ListItemText
+                  primary={<Typography sx={{ fontWeight: item.active ? 800 : 600 }}>{item.label}</Typography>}
+                />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-        <Divider sx={{ my: 2, borderColor: 'rgba(255,255,255,0.08)' }} />
-        {/* Dark mode toggle */}
+        <Divider sx={{ my: 2 }} />
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 'auto' }}>
-          <WbSunnyIcon sx={{ color: theme.palette.secondary.main }} />
+          <WbSunnyIcon sx={{ color: theme.palette.text.primary }} />
           <Switch
             checked={theme.palette.mode === 'dark'}
             onChange={colorMode.toggleColorMode}
-            color="secondary"
-            inputProps={{ 'aria-label': 'toggle dark mode' }}
+            color="primary"
+            slotProps={{ input: { 'aria-label': 'toggle dark mode' } }}
           />
-          <NightsStayIcon sx={{ color: theme.palette.text.secondary }} />
+          <NightsStayIcon sx={{ color: isDark ? theme.palette.text.secondary : theme.palette.text.primary }} />
         </Box>
       </Box>
     </Drawer>
   );
 };
 
-export default Sidebar; 
+export default Sidebar;
