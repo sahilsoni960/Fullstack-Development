@@ -3,11 +3,22 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import MenuIcon from '@mui/icons-material/Menu';
+import Tooltip from '@mui/material/Tooltip';
+import { LayoutContext } from '../theme/LayoutContext';
 
 const Topbar: React.FC = () => {
+  const { sidebarOpen, toggleSidebar } = React.useContext(LayoutContext);
   return (
     <AppBar position="static" elevation={6} sx={{ mb: 3, px: 3 }}>
-      <Toolbar sx={{ minHeight: { xs: 68, md: 76 } }}>
+      <Toolbar sx={{ minHeight: { xs: 68, md: 76 }, gap: 1 }}>
+        <Tooltip title={sidebarOpen ? 'Collapse menu' : 'Expand menu'}>
+          <IconButton aria-label="toggle sidebar" onClick={toggleSidebar} edge="start" sx={{ mr: 1 }}>
+            {sidebarOpen ? <MenuOpenIcon /> : <MenuIcon />}
+          </IconButton>
+        </Tooltip>
         <Typography
           variant="h4"
           sx={{
