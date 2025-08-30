@@ -21,6 +21,7 @@ yarn-error.log*
 market-digest-backend/target/
 
 # OS
-.DS_Store
-Thumbs.db
 
+# Project-specific assets to ignore at repo root
+/Screenshot*.png
+/Screenshot*.jpg
