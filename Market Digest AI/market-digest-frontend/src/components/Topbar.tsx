@@ -1,24 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import MenuIcon from '@mui/icons-material/Menu';
-import Tooltip from '@mui/material/Tooltip';
-import { LayoutContext } from '../theme/LayoutContext';
+import Switch from '@mui/material/Switch';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
+import { useTheme } from '@mui/material/styles';
+import { ColorModeContext } from '../theme/ColorModeContext';
 
 const Topbar: React.FC = () => {
-  const { sidebarOpen, toggleSidebar } = React.useContext(LayoutContext);
+  const theme = useTheme();
+  const colorMode = useContext(ColorModeContext);
   return (
-    <AppBar position="static" elevation={6} sx={{ mb: 3, px: 3 }}>
-      <Toolbar sx={{ minHeight: { xs: 68, md: 76 }, gap: 1 }}>
-        <Tooltip title={sidebarOpen ? 'Collapse menu' : 'Expand menu'}>
-          <IconButton aria-label="toggle sidebar" onClick={toggleSidebar} edge="start" sx={{ mr: 1 }}>
-            {sidebarOpen ? <MenuOpenIcon /> : <MenuIcon />}
-          </IconButton>
-        </Tooltip>
+    <AppBar position="static" elevation={6} sx={{ mb: 1.5, px: 3 }}>
+      <Toolbar sx={{ minHeight: { xs: 68, md: 76 }, gap: 2, pt: { xs: 1, md: 1.25 }, pb: { xs: 0.75, md: 0.75 } }}>
+        {/* Title */}
         <Typography
           variant="h4"
           sx={{
@@ -36,7 +33,6 @@ const Topbar: React.FC = () => {
               px: { xs: 2, md: 2.5 },
               py: { xs: 0.5, md: 0.75 },
               borderRadius: 9999,
-              // Simple blue pill
               background: 'linear-gradient(135deg, #1E88E5 0%, #1976D2 100%)',
               color: '#FFFFFF',
               boxShadow: '0 8px 20px rgba(0,0,0,0.25)',
@@ -46,7 +42,20 @@ const Topbar: React.FC = () => {
             Company News Dashboard
           </Box>
         </Typography>
+
         <Box sx={{ flex: 1 }} />
+
+        {/* Theme toggle on the right */}
+        <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}>
+          <WbSunnyIcon sx={{ color: theme.palette.text.primary }} />
+          <Switch
+            checked={theme.palette.mode === 'dark'}
+            onChange={colorMode.toggleColorMode}
+            color="primary"
+            inputProps={{ 'aria-label': 'toggle dark mode' }}
+          />
+          <NightsStayIcon sx={{ color: theme.palette.text.secondary }} />
+        </Box>
       </Toolbar>
     </AppBar>
   );

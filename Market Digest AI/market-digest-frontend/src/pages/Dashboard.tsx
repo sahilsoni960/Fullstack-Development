@@ -110,7 +110,14 @@ const Dashboard: React.FC = () => {
               color={showSummaries ? 'secondary' : 'default'}
               onClick={() => setShowSummaries(v => !v)}
               variant={showSummaries ? 'filled' : 'outlined'}
-              sx={{ borderColor: 'rgba(255,255,255,0.2)' }}
+              sx={{
+                borderColor: 'rgba(255,255,255,0.2)',
+                height: 40,
+                px: 1.5,
+                '& .MuiChip-label': { fontSize: '0.95rem', fontWeight: 800, px: 0.5 },
+                borderRadius: 9999,
+                boxShadow: showSummaries ? '0 4px 12px rgba(0,0,0,0.25)' : 'none'
+              }}
             />
           </Stack>
         </Stack>

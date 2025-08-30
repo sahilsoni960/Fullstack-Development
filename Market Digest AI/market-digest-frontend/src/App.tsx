@@ -2,15 +2,14 @@ import { useMemo, useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Sidebar from './components/Sidebar';
+// Removed Sidebar
 import Topbar from './components/Topbar';
 import Dashboard from './pages/Dashboard';
 import { ColorModeContext } from './theme/ColorModeContext';
-import { LayoutContext } from './theme/LayoutContext';
+// Removed LayoutContext
 
 function App() {
   const [mode, setMode] = useState<'light' | 'dark'>('dark');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
@@ -19,11 +18,6 @@ function App() {
     }),
     []
   );
-
-  const layout = useMemo(() => ({
-    sidebarOpen,
-    toggleSidebar: () => setSidebarOpen((v) => !v),
-  }), [sidebarOpen]);
 
   const modernTheme = useMemo(() => createTheme({
     palette: {
@@ -87,7 +81,7 @@ function App() {
           track: { backgroundColor: mode === 'dark' ? 'rgba(255,255,255,0.25)' : 'rgba(17,24,39,0.24)' },
           thumb: { backgroundColor: mode === 'dark' ? '#FFFFFF' : '#FFFFFF' },
           switchBase: {
-            '&.Mui-checked + .MuiSwitch-track': { backgroundColor: mode === 'dark' ? '#34A853' : '#1976D2' },
+            '&.Mui-checked + .MuiSwitch-track': { backgroundColor: '#EC407A' },
             '&.Mui-checked .MuiSwitch-thumb': { backgroundColor: '#FFFFFF' },
           },
         },
@@ -98,36 +92,33 @@ function App() {
 
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <LayoutContext.Provider value={layout}>
-        <ThemeProvider theme={modernTheme}>
-          <CssBaseline />
-          <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: modernTheme.palette.background.default }}>
-            <Sidebar />
-            <Box sx={{ flex: 1, p: 0, display: 'flex', flexDirection: 'column' }}>
-              <Topbar />
-              <Box
-                sx={{
-                  flex: 1,
-                  p: { xs: 2, md: 3 },
-                  backgroundColor: modernTheme.palette.background.default,
-                  // Faint, Material-inspired depth glows (very low alpha); fixed so it feels ambient
-                  backgroundImage: {
-                    xs: undefined,
-                    md: modernTheme.palette.mode === 'dark'
-                      ? 'radial-gradient(900px 500px at 5% -10%, rgba(66,133,244,0.10) 0%, rgba(0,0,0,0) 60%), radial-gradient(800px 450px at 105% 0%, rgba(234,67,53,0.08) 0%, rgba(0,0,0,0) 60%), radial-gradient(950px 520px at -10% 110%, rgba(52,168,83,0.07) 0%, rgba(0,0,0,0) 65%)'
-                      : undefined,
-                  },
-                  backgroundAttachment: { md: 'fixed, fixed, fixed' },
-                  backgroundRepeat: 'no-repeat',
-                  minHeight: '100vh',
-                }}
-              >
-                <Dashboard />
-              </Box>
-            </Box>
+      <ThemeProvider theme={modernTheme}>
+        <CssBaseline />
+        <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: modernTheme.palette.background.default, flexDirection: 'column' }}>
+          <Topbar />
+          <Box
+            sx={{
+              flex: 1,
+              // Reduce top padding to tighten space before the search row
+              pt: { xs: 1, md: 1.25 },
+              px: { xs: 2, md: 3 },
+              pb: { xs: 2, md: 3 },
+              backgroundColor: modernTheme.palette.background.default,
+              backgroundImage: {
+                xs: undefined,
+                md: modernTheme.palette.mode === 'dark'
+                  ? 'radial-gradient(900px 500px at 5% -10%, rgba(66,133,244,0.10) 0%, rgba(0,0,0,0) 60%), radial-gradient(800px 450px at 105% 0%, rgba(234,67,53,0.08) 0%, rgba(0,0,0,0) 60%), radial-gradient(950px 520px at -10% 110%, rgba(52,168,83,0.07) 0%, rgba(0,0,0,0) 65%)'
+                  : undefined,
+              },
+              backgroundAttachment: { md: 'fixed, fixed, fixed' },
+              backgroundRepeat: 'no-repeat',
+              minHeight: '100vh',
+            }}
+          >
+            <Dashboard />
           </Box>
-        </ThemeProvider>
-      </LayoutContext.Provider>
+        </Box>
+      </ThemeProvider>
     </ColorModeContext.Provider>
   );
 }
