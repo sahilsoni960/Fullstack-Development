@@ -8,8 +8,6 @@ import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import { useTheme } from '@mui/material/styles';
-import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline';
-import HighlightOff from '@mui/icons-material/HighlightOff';
 import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import CircularProgress from '@mui/material/CircularProgress';
 import type { NewsArticle, SummarizeResponse } from '../services/api';
@@ -66,16 +64,6 @@ const CompanyCard: React.FC<CompanyCardProps> = ({ company, articles, summary, i
   const shouldShowSummary = showSummary !== false;
   const accent = ACCENTS[hashToIndex(company, ACCENTS.length)];
 
-  const getSentimentStyle = (sentiment: string) => {
-    const sentimentLower = sentiment.toLowerCase();
-    if (sentimentLower.includes('positive')) {
-      return { color: 'success' as const, icon: <CheckCircleOutline /> };
-    }
-    if (sentimentLower.includes('negative')) {
-      return { color: 'error' as const, icon: <HighlightOff /> };
-    }
-    return { color: 'info' as const, icon: <InfoOutlined /> };
-  };
 
   const renderSummary = () => {
     if (!shouldShowSummary) return null;

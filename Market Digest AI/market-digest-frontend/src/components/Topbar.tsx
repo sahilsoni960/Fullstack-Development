@@ -3,10 +3,8 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
 
 const Topbar: React.FC = () => {
-  const theme = useTheme();
   return (
     <AppBar position="static" elevation={6} sx={{ mb: 3, px: 3 }}>
       <Toolbar sx={{ minHeight: { xs: 68, md: 76 } }}>
