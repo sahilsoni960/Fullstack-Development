@@ -1,5 +1,0 @@
-[33m7210ed5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Update README.md
-[33m8cedc2c[m Update README.md
-[33m6686e14[m Commit and push all latest changes
-[33m94ea21c[m Commit all local changes before rebase and push
-[33m3e96d9c[m Add initial data.sql for H2 seeding and defer datasource initialization in application.properties

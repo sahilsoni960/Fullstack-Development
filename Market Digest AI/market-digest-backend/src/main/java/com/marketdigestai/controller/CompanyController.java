@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class CompanyController {
     private static final List<String> COMPANIES = Arrays.asList(
             "Apple", "Microsoft", "Google", "Amazon", "Meta", "Tesla", "Nvidia", "Samsung", "IBM", "Intel",
-            "Oracle", "Netflix", "Adobe", "Intact", "Salesforce", "Informatica","Uber", "Airbnb", "Spotify", "PayPal", "Shopify", "Zoom"
+            "Oracle", "Netflix", "Adobe", "Salesforce", "Informatica","Uber", "Airbnb", "Spotify", "PayPal", "Shopify", "Zoom"
     );
 
     @GetMapping("/api/companies")

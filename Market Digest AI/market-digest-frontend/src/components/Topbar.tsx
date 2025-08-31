@@ -13,8 +13,8 @@ const Topbar: React.FC = () => {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
   return (
-    <AppBar position="static" elevation={6} sx={{ mb: 1.5, px: 3 }}>
-      <Toolbar sx={{ minHeight: { xs: 68, md: 76 }, gap: 2, pt: { xs: 1, md: 1.25 }, pb: { xs: 0.75, md: 0.75 } }}>
+    <AppBar position="static" elevation={6} sx={{ mb: 1.5 }}>
+      <Toolbar disableGutters sx={{ px: { xs: 2, md: 3 }, minHeight: { xs: 68, md: 76 }, gap: 2, pt: { xs: 1, md: 1.25 }, pb: { xs: 0.75, md: 0.75 } }}>
         {/* Title */}
         <Typography
           variant="h4"
