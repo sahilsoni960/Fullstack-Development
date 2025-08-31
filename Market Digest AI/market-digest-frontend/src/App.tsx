@@ -9,7 +9,7 @@ import { ColorModeContext } from './theme/ColorModeContext';
 // Removed LayoutContext
 
 function App() {
-  const [mode, setMode] = useState<'light' | 'dark'>('dark');
+  const [mode, setMode] = useState<'light' | 'dark'>('light');
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
