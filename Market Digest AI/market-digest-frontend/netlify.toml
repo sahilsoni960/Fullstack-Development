@@ -11,9 +11,9 @@
 [[redirects]]
   # The path on your Netlify site that will be proxied
   from = "/api/*"
-  # The backend URL on Koyeb where the requests will be sent
-  # IMPORTANT: You will need to set this as an environment variable in Netlify
-  to = "https://obliged-dania-soni-02bc7456.koyeb.app/api/:splat"
+  # The backend URL on Koyeb where the requests will be sent.
+  # This uses the environment variable set in the Netlify UI.
+  to = "${KOYEB_BACKEND_URL}/api/:splat"
   # The HTTP status code for the redirect
   status = 200
   # Force the redirect to be a proxy
