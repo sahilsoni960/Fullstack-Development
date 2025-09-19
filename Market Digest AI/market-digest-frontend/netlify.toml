@@ -1,0 +1,15 @@
+# Netlify configuration for the frontend application.
+# This file should be in the same directory as the package.json.
+
+# Build settings are now primarily controlled by the Netlify UI.
+# This section can be minimal.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Redirects and proxy rules for the API
+[[redirects]]
+  from = "/api/*"
+  to = "${KOYEB_BACKEND_URL}/api/:splat"
+  status = 200
+  force = true
