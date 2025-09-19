@@ -12,9 +12,9 @@ export interface SummarizeResponse {
   sentiment: string;
 }
 
-// Prefer explicit env override; fallback to localhost in dev and /api in prod
-const API_BASE = (import.meta as any).env?.VITE_API_BASE
-  ?? (import.meta.env.DEV ? 'http://localhost:8080/api' : '/api');
+// In development, use the local backend URL.
+// In production, use the full URL of the deployed Koyeb backend, passed in via an environment variable.
+const API_BASE = import.meta.env.VITE_KOYEB_BACKEND_URL || 'http://localhost:8080/api';
 
 export async function fetchCompanies(search = ''): Promise<string[]> {
   const res = await fetch(`${API_BASE}/companies?search=${encodeURIComponent(search)}`);
