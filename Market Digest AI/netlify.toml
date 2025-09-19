@@ -1,0 +1,18 @@
+# Netlify configuration for a monorepo.
+# This file should be in the root of the repository.
+
+# Base build settings for the frontend application
+[build]
+  base = "market-digest-frontend"
+  command = "npm run build"
+  publish = "dist"
+
+# Functions directory
+[functions]
+  directory = "market-digest-frontend/netlify/functions"
+
+# Redirect rule to send all API traffic to our serverless proxy function
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/proxy/:splat"
+  status = 200
